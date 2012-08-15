@@ -17,7 +17,7 @@ class Song:
 
 
 def clean(string):
-    return string.encode('ascii', 'ignore')
+    return string.encode('ascii', 'ignore').replace('/', ' ')
 
 
 def get_all_songs(username):
@@ -61,8 +61,20 @@ def download_mp3(song):
     endm = end - 1
     url = resp.text[startm:endm]
 
-    r = requests.get(url)
+    try: 
+        r = requests.get(url)
+
+    except Exception as e:
+        print "Failed to download " + song.get_fullname()
+        return
+
     filename = song.get_fullname()
-    f = open(filename + '.mp3', 'w')
-    f.write(r.content)
-    f.close()
+
+    try:
+        f = open(filename + '.mp3', 'w+')
+        f.write(r.content)
+        f.close()
+
+    except Exception as e:
+        print e
+        return
