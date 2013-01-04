@@ -1,4 +1,4 @@
-hypem-scraper
+hypem-scraper-python
 =============
 
 Description
