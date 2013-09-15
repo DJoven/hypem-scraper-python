@@ -67,6 +67,7 @@ def download_mp3(song):
         
     except Exception as e:
         print ("Failed to download " + song.get_fullname())
+        print (e)
         return
 
     filename = song.get_fullname()
