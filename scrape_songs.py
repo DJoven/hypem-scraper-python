@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import os
 import sys
 import requests
 import simplejson as json
@@ -73,9 +74,12 @@ def download_mp3(song):
     filename = song.get_fullname()
 
     try:
-        f = open(filename + '.mp3', 'wb+')
-        f.write(r.content)
-        f.close()
+        if os.path.exists(filename):
+            print ("File exists, skipping.")
+        else:
+            f = open(filename + '.mp3', 'wb+')
+            f.write(r.content)
+            f.close()
 
     except Exception as e:
         print (e)
